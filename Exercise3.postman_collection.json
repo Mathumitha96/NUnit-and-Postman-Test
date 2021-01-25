@@ -1,0 +1,65 @@
+{
+	"info": {
+		"_postman_id": "491b7303-0dab-4354-b823-6d0829bc9084",
+		"name": "Sitecore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetWeather",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"checking the weather in New York\", function () {\r",
+							"   pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+							"    if(pm.response.code === 200){\r",
+							"        var data = JSON.parse(responseBody);\r",
+							"        temperature = (data.temp[0].temp_max - 32)*(5/9)\r",
+							"        if(temperature>10){\r",
+							"        } else {\r",
+							"            pm.test(\"Maximum emperature is less than 10\", function () {\r",
+							"               throw new Error(\"Maximum temperature is less than 10\");\r",
+							"            });\r",
+							"        }\r",
+							"        console.log(Boolean(temperature>10))\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.openweathermap.org/data/2.5/weather?q=New york&appid=d11744776925ead8c62aeaeb0f9fcdd3",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"weather"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "New york"
+						},
+						{
+							"key": "appid",
+							"value": "d11744776925ead8c62aeaeb0f9fcdd3"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
